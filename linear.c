@@ -36,7 +36,7 @@ int main()
 	d = liner(b,&l,15,sizeof(double),f_double);
 	printf("Serial number  of int = %d\n",s);
 	printf("Serial number of double =%d\n",d);
-	getchar();
+
 	return 0;
 }
 
