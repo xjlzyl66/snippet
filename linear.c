@@ -3,12 +3,16 @@
 
 #include<stdio.h>
 
-int liner(void *a, void *k,int n,int m , int (*f)(void*x, void*y))
+int liner(void *a,int size,int stride ,void *k, int (*f)(void*x, void*y))
 {
 	int i;
-	for(i=0;i<n;i++)
+	char *p,*p1;
+	
+	p = (char *)a;
+	p1 = (char *)k;
+	for(i=0;i<size;i++)
 	{
-		if(f((a+i*m), k))
+		if(f((p+i*stride), p1))
         	   break;
 	}
 	return i;
@@ -32,8 +36,8 @@ int main()
 	double l = 9.1;
 	
 	int s,d;
-	s = liner(a,&k,18,sizeof(int),f_int);
-	d = liner(b,&l,15,sizeof(double),f_double);
+	s = liner(a,18,sizeof(int),&k,f_int);
+	d = liner(b,15,sizeof(double),&l,f_double);
 	printf("Serial number  of int = %d\n",s);
 	printf("Serial number of double =%d\n",d);
 
