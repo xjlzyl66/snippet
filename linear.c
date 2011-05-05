@@ -24,7 +24,7 @@ int f_double(void *x,void *y)
 	return(*(double *)x == *(double *)y);
 }
 
-void main()
+int main()
 {
 	int a[]={0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18};
 	int k=10;
@@ -37,6 +37,7 @@ void main()
 	printf("Serial number  of int = %d\n",s);
 	printf("Serial number of double =%d\n",d);
 	getchar();
+	return 0;
 }
 
 
