@@ -46,7 +46,10 @@ int f_point(void *x,void*y) //struct可以整体赋值 不能用"=="判断相等
 
 }
 
-//int find_first_point(point *x,int size,int stride,int (*f)(void*x,void*y))
+int find_first_point(point *x,int size,int stride,point *k)
+{
+	return(linear(x,size,stride,k,f_point)); //f_point不作为find_first_point的参数传入，而是直接在里面使用。
+}
 //this function is a special case of int linear() search?
 
 int main()
@@ -56,13 +59,15 @@ int main()
 	double b[]={0.1,1.1,2.1,3.1,4.1,5.1,6.1,7.1,8.1,9.1,10.1,11.1,12.1,13.1,14.1,15.1};
 	double l = 9.1;
 	
-	int s,d,p;
+	int s,d,p,z;
 	s = linear(a,18,sizeof(int),&k,f_int);
 	d = linear(b,15,sizeof(double),&l,f_double);
 	p = linear(c,6,sizeof(point),&m,f_point);
+	z = find_first_point(c,6,sizeof(point),&m);
 	printf("Serial number  of int = %d\n",s);
 	printf("Serial number of double =%d\n",d);
 	printf("index of point =%d\n",p);
+	printf("index of point =%d\n",z);
 
 	return 0;
 }
