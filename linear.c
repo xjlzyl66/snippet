@@ -6,8 +6,9 @@
 
 
 typedef struct { int x,y; } point;
-point c[] = { {13,14},{42,434},{123,312},{12,26},{232,232},{156,43} };
+point c[] = { {13,14},{42,434},{12,312},{12,26},{232,232},{156,43} };
 point m = { 12, 26 };
+int v = 12;
 
 int linear(void *a,int size,int stride ,void *k, int (*f)(void*x, void*y))
 {
@@ -46,6 +47,13 @@ int f_point(void *x,void*y) //struct可以整体赋值 不能用"=="判断相等
 
 }
 
+int f_point_x(void *x,void *y)
+{
+	point *px = (point *)x;
+	int *y1 = (int *)y;
+	return(px->x == *y1);
+}
+
 int find_first_point(point *x,int size,int stride,point *k)
 {
 	return(linear(x,size,stride,k,f_point)); //f_point不作为find_first_point的参数传入，而是直接在里面使用。
@@ -59,15 +67,17 @@ int main()
 	double b[]={0.1,1.1,2.1,3.1,4.1,5.1,6.1,7.1,8.1,9.1,10.1,11.1,12.1,13.1,14.1,15.1};
 	double l = 9.1;
 	
-	int s,d,p,z;
+	int s,d,p,z,e;
 	s = linear(a,18,sizeof(int),&k,f_int);
 	d = linear(b,15,sizeof(double),&l,f_double);
 	p = linear(c,6,sizeof(point),&m,f_point);
 	z = find_first_point(c,6,sizeof(point),&m);
+	e = linear(c,6,sizeof(point),&v,f_point_x);
 	printf("Serial number  of int = %d\n",s);
 	printf("Serial number of double =%d\n",d);
 	printf("index of point =%d\n",p);
 	printf("index of point =%d\n",z);
+	printf("index of point x =%d\n",e);
 
 	return 0;
 }
